@@ -1,0 +1,221 @@
+{% extends 'courses/base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Service Start -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="service-item text-center pt-3">
+                    <div class="p-4">
+                        <i class="fa fa-3x fa-graduation-cap text-primary mb-4"></i>
+                        <h5 class="mb-3">Skilled Instructors</h5>
+                        <p>Diam elitr kasd sed at elitr sed ipsum justo dolor sed clita amet diam</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
+                <div class="service-item text-center pt-3">
+                    <div class="p-4">
+                        <i class="fa fa-3x fa-globe text-primary mb-4"></i>
+                        <h5 class="mb-3">Online Classes</h5>
+                        <p>Diam elitr kasd sed at elitr sed ipsum justo dolor sed clita amet diam</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.5s">
+                <div class="service-item text-center pt-3">
+                    <div class="p-4">
+                        <i class="fa fa-3x fa-home text-primary mb-4"></i>
+                        <h5 class="mb-3">Home Projects</h5>
+                        <p>Diam elitr kasd sed at elitr sed ipsum justo dolor sed clita amet diam</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.7s">
+                <div class="service-item text-center pt-3">
+                    <div class="p-4">
+                        <i class="fa fa-3x fa-book-open text-primary mb-4"></i>
+                        <h5 class="mb-3">Book Library</h5>
+                        <p>Diam elitr kasd sed at elitr sed ipsum justo dolor sed clita amet diam</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Service End -->
+
+<!-- Courses by Category Start -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="text-center">
+        <h6 class="section-title bg-white text-center text-primary px-3">Courses</h6>
+        <h1 class="mb-5">Explore by Category!</h1>
+        
+
+        
+        <div class="row">
+            {% for cats in categories %}
+            <div class="col-lg-4 col-md-4 col-xs-6 wow zoomIn" data-wow-delay="0.7s" style="min-height: 350px;margin-top: 20px; box-shadow: 5px 5px 10px 5px" >
+                <a class="position-relative d-block h-100 overflow-hidden" href="{% url 'course_detail' foo=cats.name  %}">
+                    <img  class="img-fluid w-100 h-100 "  src="{{ cats.image.url }}" alt="{{cats.name}}" style="object-fit: fill;">
+                    
+                    <div class="bg-white text-center position-absolute bottom-0 end-0 py-2 px-3" style="margin:  1px;">
+                        <h5 class="m-0">{{cats.name}}</h5>
+                        <small class="text-primary">{{cats.course_count}} Courses</small>
+                    </div>
+                </a>
+            </div>
+        
+
+        {% endfor %}
+
+        </div>
+    </div>
+    </div>
+</div>
+
+<!-- Courses by Category End -->
+
+<!-- Testimonial Start -->
+
+<div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
+    <div class="container text-center">
+        <h6 class="section-title bg-white text-primary px-3">Testimonial</h6>
+        <h1 class="mb-5">Our Students Say!</h1>
+
+        {% for review in reviews %}
+        <div class="testimonial-item mb-4 p-4 bg-light rounded shadow-sm d-flex justify-content-between align-items-center">
+            <div>
+                <h5 class="mb-2">{{ review.user.username }}</h5>
+                <p class="mb-0">{{ review.content }}</p>
+            </div>
+            <div class="rating">
+                {% for i in "12345" %}
+                    {% if forloop.counter <= review.rating %}
+                        <i class="fas fa-star text-warning"></i>
+                    {% else %}
+                        <i class="far fa-star text-warning"></i>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        {% empty %}
+        <p class="text-start">No testimonials yet.</p>
+        {% endfor %}
+    </div>
+</div>
+
+
+
+<!-- Testimonial End -->
+
+
+
+
+<style>
+    .carousel-item {
+        position: relative;
+        z-index: 1; /* Ensure carousel items are on a lower layer */
+    }
+
+    .course-box {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        background-color: #fff;
+        position: relative; /* Required for z-index to work */
+        z-index: 2; /* Layer above carousel items */
+    }
+
+    .course-box img {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+    }
+
+    .course-details {
+        padding: 15px;
+        text-align: center;
+        z-index: 3; /* Ensure the details are above the course box */
+        position: relative; /* Required for z-index to work */
+    }
+
+    .course-details h5 {
+        margin-top: 0;
+        font-size: 1.25rem;
+    }
+
+    .course-details a.btn {
+        margin-top: 10px;
+        z-index: 4; /* Bring the button above all other elements */
+        position: relative; /* Required for z-index to work */
+    }
+
+    .carousel-control-prev, .carousel-control-next {
+        width: 5%;
+        z-index: 5; /* Ensure controls are on the top layer */
+        position: absolute; /* Required for z-index to work */
+    }
+
+    .carousel-control-prev-icon, .carousel-control-next-icon {
+        background-color: rgba(0, 0, 0, 0.3);
+    }
+
+    @media (max-width: 768px) {
+        .carousel-item {
+            padding: 0 10px;
+        }
+
+        .carousel-control-prev, .carousel-control-next {
+            width: 8%;
+        }
+    }
+
+
+    .testimonial-carousel {
+        margin-top: 30px;
+    }
+
+    .testimonial-item {
+        padding: 20px;
+        border: 1px solid #e1e1e1;
+        border-radius: 8px;
+        background: #f8f9fa;
+        margin: 10px;
+        box-shadow: none; /* Optional: Remove box-shadow */
+        transition: background 0.3s ease;
+        text-align: center;
+    }
+
+    .testimonial-item:hover {
+        background: #e9ecef; /* Lighten background on hover */
+    }
+
+    .testimonial-text {
+        padding: 15px;
+        border-radius: 5px;
+        background-color: #ffffff;
+        max-height: 150px; /* Set a max height */
+        overflow-y: auto; /* Allow vertical scrolling if content overflows */
+        word-wrap: break-word; /* Ensure long words wrap */
+    }
+
+    .rating {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 10px;
+    }
+
+    .rating i {
+        margin: 0 2px;
+    }
+
+</style>
+
+{% endblock content %}
+    

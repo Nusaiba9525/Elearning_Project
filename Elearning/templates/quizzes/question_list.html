@@ -1,0 +1,71 @@
+{% extends 'courses/base.html' %}
+{% load custom_filters %}
+
+{% block title %}{{ quiz.title }}{% endblock %}
+
+{% block heading %}
+   <!-- Header Start -->
+   <div class="container-fluid bg-primary py-5 mb-5 page-header">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 text-center">
+                <h1 class="display-3 text-white animated slideInDown">{{ quiz.title }}</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item"><a class="text-white" href="{% url 'home' %}">Home</a></li>
+                        <li class="breadcrumb-item text-white active" aria-current="page">Quiz</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Header End -->
+
+{% endblock  %}
+
+{% block content %}
+<div class="container mt-5 quiz-container">
+    <h2 class="quiz-title">{{ quiz.title }}</h2>
+    <p class="lead quiz-description">{{ quiz.description }}</p>
+    {% if user.is_superuser %}
+      <a href="{% url 'upload_question' quiz.id %}" class="btn btn-primary mb-4">Add Questions</a>
+    {% endif %}
+    
+    <form method="POST" class="quiz-form">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        
+        {% for field in form %}
+            <div class="form-group">
+                <h4>Question {{ forloop.counter }}: {{ field.label_tag }}</h4>
+                <br>
+                {{ field }}
+                {% if field.errors %}
+                    <div class="text-danger">
+                        {% for error in field.errors %}
+                            <small>{{ error }}</small>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                {% if user.is_superuser %}
+                <div class="mt-2">
+               
+                    {% comment %} <!-- Edit Question Button -->
+                    <a href="{% url 'edit_question' course_id=quiz.course.id quiz_id=quiz.id question_id=field_question_map|get_item:field.name %}" class="btn btn-secondary btn-sm">Edit Question</a>
+                    
+                    <!-- Edit Choices Button -->
+                    <a href="{% url 'edit_choices' course_id=quiz.course.id quiz_id=quiz.id question_id=field_question_map|get_item:field.name %}" class="btn btn-warning btn-sm">Edit Choices</a> {% endcomment %}
+                    
+                    <!-- Delete Question Button -->
+                    <a href="{% url 'delete_question' course_id=quiz.course.id quiz_id=quiz.id question_id=field_question_map|get_item:field.name %}" class="btn btn-danger btn-sm">Delete Question</a>
+                </div>
+            {% else %}
+                <p>You are not a superuser.</p>
+            {% endif %}
+            </div>
+        {% endfor %}
+    </form>
+</div>
+{% endblock %}

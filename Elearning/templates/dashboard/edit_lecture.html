@@ -1,0 +1,94 @@
+{% extends 'courses/base.html' %}
+
+{% block title %}Edit Lecture{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Edit Lecture: {{ lecture.title }}</h2>
+
+    <!-- Success Message -->
+    {% if success_message %}
+        <div class="alert alert-success">
+            {{ success_message }}
+        </div>
+    {% endif %}
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <!-- Lecture Form -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h4>Lecture Details</h4>
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="{{ form.course.id_for_label }}">Course</label>
+                    {{ form.course }}
+                </div>
+                <div class="mb-3">
+                    <label for="id_title">Lecture Title</label>
+                    {{ form.title }}
+                </div>
+                <div class="mb-3">
+                    <label for="id_order">Order</label>
+                    {{ form.order }}
+                </div>
+                <div class="mb-3">
+                    <label for="id_description">Lecture Description</label>
+                    {{ form.description }}
+                </div>
+            </div>
+        </div>
+
+        <!-- PDF Forms -->
+        {% for pdf_form in pdf_forms %}
+        <div class="card mb-4">
+            <div class="card-header">
+                <h4>Edit PDF</h4>
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="{{ pdf_form.lecture.id_for_label }}">Title</label>
+                    {{ pdf_form.lecture }}
+                </div>
+                
+                <div class="mb-3">
+                    <label for="{{ pdf_form.name.id_for_label }}">PDF Name</label>
+                    {{ pdf_form.name }}
+                </div>
+                <div class="mb-3">
+                    <label for="{{ pdf_form.pdf_file.id_for_label }}">Upload PDF</label>
+                    {{ pdf_form.pdf_file }}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+        <!-- Video Forms -->
+        {% for video_form in video_forms %}
+        <div class="card mb-4">
+            <div class="card-header">
+                <h4>Edit Video: {{ video_form.instance.title }}</h4>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label for="{{ video_form.title.id_for_label }}">Video Title</label>
+                    {{ video_form.title }}
+                </div>
+                <div class="mb-3">
+                    <label for="{{ video_form.video_url.id_for_label }}">Video URL</label>
+                    {{ video_form.video_url }}
+                </div>
+                <div class="mb-3">
+                    <label for="{{ video_form.video_file.id_for_label }}">Upload Video</label>
+                    {{ video_form.video_file }}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+    </form>
+</div>
+{% endblock %}

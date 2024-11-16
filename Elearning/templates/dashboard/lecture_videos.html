@@ -1,0 +1,75 @@
+{% extends 'courses/base.html' %}
+{% load static %}
+{% block title %}Upload Lecture Video{% endblock title %}
+
+{% block heading %}
+<div class="container-fluid bg-primary py-5 mb-5 page-header">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 text-center">
+                <h1 class="display-3 text-white animated slideInDown">Upload Lecture Video</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item"><a class="text-white" href="{% url 'home' %}">Home</a></li>
+                        <li class="breadcrumb-item text-white active" aria-current="page">Upload Lecture Video</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock heading %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Upload a Lecture Video for "{{ course.title }}"</h2>
+   
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ video_form.non_field_errors }}
+        
+        <div class="form-group">
+            <label for="{{ video_form.lecture.id_for_label }}">Title</label>
+            {{ video_form.lecture }}
+        </div>
+        
+        <div class="form-group">
+            <label for="{{ video_form.name.id_for_label }}">PDF Name</label>
+            {{ video_form.name }}
+        </div>
+        <div class="form-group">
+            <label for="{{ video_form.video_url.id_for_label }}">Upload Video</label>
+            {{ video_form.video_url }}
+        </div>
+        
+        <button type="submit" class="btn btn-primary btn-block">Upload Video</button>
+    </form>
+    
+    <a href="{% url 'manage_lectures' course.id %}" class="btn btn-secondary mt-3">Back to Manage Lectures</a>
+</div>
+
+{% endblock content %}
+
+{% block css %}
+<style>
+    .page-header {
+        background-color: #007bff;
+        color: #ffffff;
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 30px;
+    }
+
+    .form-label {
+        font-weight: bold;
+    }
+
+    .form-control {
+        margin-bottom: 15px;
+    }
+
+    .btn-block {
+        width: 100%;
+    }
+</style>
+{% endblock css %}

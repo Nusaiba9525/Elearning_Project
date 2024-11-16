@@ -1,0 +1,134 @@
+{% extends 'courses/base.html' %}
+{% load static %}
+
+{% block title %}Register{% endblock title %}
+
+{% block heading %}
+<div class="container-fluid bg-primary py-5 mb-5 page-header">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 text-center">
+                <h1 class="display-3 text-white animated slideInDown">Register</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item"><a class="text-white" href="{% url 'home' %}">Home</a></li>
+                        <li class="breadcrumb-item"><a class="text-white" href="#">Pages</a></li>
+                        <li class="breadcrumb-item text-white active" aria-current="page">Register</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock heading %}
+
+{% block content %}
+<!-- Register Start -->
+<div class="container-xxl py-2 mt-4">
+    <div class="container">
+        <div class="row g-4 wow fadeInUp" data-wow-delay="0.5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;">
+            <center>
+                <form class="shadow p-4" style="max-width: 550px;" method="POST">
+                    {% csrf_token %}
+                    <div class="text-center wow fadeInUp" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">
+                        <h1 class="mb-5 bg-white text-center px-3">Register</h1>
+                    </div>
+                    <div class="row g-3">
+                        <!-- Username Field -->
+                        <div class="col-12">
+                            <div class="form-floating">
+                                {{ form.username }}
+                                <label for="username">Username</label>
+                                {% if form.username.errors %}
+                                    <div class="error-message">
+                                        {% for error in form.username.errors %}
+                                            <p>{{ error }}</p>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Email Field -->
+                        <div class="col-12">
+                            <div class="form-floating">
+                                {{ form.email }}
+                                <label for="email">Email</label>
+                                {% if form.email.errors %}
+                                    <div class="error-message">
+                                        {% for error in form.email.errors %}
+                                            <p>{{ error }}</p>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Password Field -->
+                        <div class="col-12">
+                            <div class="form-floating">
+                                {{ form.password1 }}
+                                <label for="password1">Password</label>
+                                {% if form.password1.errors %}
+                                    <div class="error-message">
+                                        {% for error in form.password1.errors %}
+                                            <p>{{ error }}</p>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                    
+                        </div>
+
+                        <!-- Confirm Password Field -->
+                        <div class="col-12">
+                            <div class="form-floating">
+                                {{ form.password2 }}
+                                <label for="password2">Confirm Password</label>
+                                {% if form.password2.errors %}
+                                    <div class="error-message">
+                                        {% for error in form.password2.errors %}
+                                            <p>{{ error }}</p>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="col-12">
+                            <button class="btn btn-primary w-100 py-3" type="submit" name="register">Register</button>
+                        </div>
+
+                        <!-- Link to Login -->
+                        <div class="col-12 text-center">
+                            <p>Already have an account? <a class="text-decoration-none" href="{% url 'login' %}">Login</a></p>
+                        </div>
+                    </div>
+                </form>
+            </center>     
+        </div>
+    </div>
+</div>
+<!-- Register End -->
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const showPassword1 = document.getElementById('show-password1');
+        const passwordInput1 = document.querySelector('input[name="password1"]');
+        
+        const showPassword2 = document.getElementById('show-password2');
+        const passwordInput2 = document.querySelector('input[name="password2"]');
+        
+        showPassword1.addEventListener('change', function () {
+            passwordInput1.type = this.checked ? 'text' : 'password';
+        });
+        
+        showPassword2.addEventListener('change', function () {
+            passwordInput2.type = this.checked ? 'text' : 'password';
+        });
+    });
+</script>
+{% endblock content %}

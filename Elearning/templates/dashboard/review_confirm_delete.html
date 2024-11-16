@@ -1,0 +1,30 @@
+{% extends "courses/base.html" %}
+
+{% block heading %}
+<div class="container-fluid bg-primary py-5 mb-5 page-header">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 text-center">
+                <h1 class="display-3 text-white animated slideInDown">Delete review</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item"><a class="text-white" href="{% url 'home' %}">Home</a></li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock heading %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Confirm Deletion</h2>
+    <p>Are you sure you want to delete the review from {{ review.user.username }}?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Confirm Delete</button>
+        <a href="{% url 'review_management' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

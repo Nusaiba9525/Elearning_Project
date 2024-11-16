@@ -1,0 +1,61 @@
+{% extends 'courses/base.html' %}
+
+{% block title %}Manage Lectures{% endblock %}
+
+{% block heading %}
+<div class="container-fluid bg-primary py-5 mb-5 page-header">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 text-center">
+                <h1 class="display-3 text-white animated slideInDown">Manage Lectures</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item"><a class="text-white" href="{% url 'home' %}">Home</a></li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock heading %}
+
+{% block content %}
+<div class="container mt-5">
+  <h2 class="mb-4">Upload Lectures</h2>
+
+
+  <a href="{% url 'upload_lecture' course_id=course_id %}" class="btn btn-primary mb-4">Upload New Lecture</a>
+  <a href="{% url 'add_lecture_video' course.id %}" class="btn btn-primary mb-4">Add Video</a>
+  <a href="{% url 'add_lecture_pdf' course.id %}" class="btn btn-primary mb-4">Add PDF</a>
+ 
+  {% if lectures %}
+  <h2 class="mb-4">Existing Lectures</h2>
+  <table class="table table-bordered">
+      <thead>
+          <tr>
+              <th>Title</th>
+              <th>Actions</th>
+          </tr>
+      </thead>
+      <tbody>
+          {% for lecture in lectures %}
+              <tr>
+                  <td>{{ lecture.title }}</td>
+                  <td>
+                      {% if user.is_superuser %}
+                          <div>
+                              <a href="{% url 'edit_lecture' lecture.id %}" class="btn btn-warning btn-sm">Edit</a>
+                              <a href="{% url 'delete_lecture' lecture_id=lecture.id %}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this lecture?')">Delete</a>
+                          </div>
+                      {% endif %}
+                  </td>
+              </tr>
+          {% endfor %}
+      </tbody>
+  </table>
+{% else %}
+  <p>No lectures found for this course.</p>
+{% endif %}
+<a href="{% url 'lecture_detail' pk=course.id %}" class="btn btn-secondary mt-3">Back to Lecture Details</a>
+</div>
+{% endblock content %}

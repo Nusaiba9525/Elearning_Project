@@ -1,0 +1,78 @@
+{% extends "courses/base.html" %}
+
+{% block heading %}
+<div class="container-fluid bg-primary py-5 mb-5 page-header">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 text-center">
+                <h1 class="display-3 text-white animated slideInDown">Manage Reviews</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item"><a class="text-white" href="{% url 'home' %}">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Manage Reviews</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock heading %}
+
+{% block content %}
+<style>
+    .table-container {
+        max-width: 100%;
+        overflow-x: auto;
+    }
+
+    .table th, .table td {
+        text-align: left;
+        vertical-align: middle;
+    }
+
+    .table td {
+        word-wrap: break-word;
+        max-width: 300px; /* Adjust width as needed */
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .review-content {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+</style>
+
+<div class="container mt-5">
+    <h2 class="mb-4">Manage Reviews</h2>
+    <div class="table-container">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>User</th>
+                    <th>Content</th>
+                    <th>Rating</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for review in reviews %}
+                <tr>
+                    <td>{{ review.user.username }}</td>
+                    <td class="review-content">{{ review.content }}</td>
+                    <td>{{ review.rating }}</td>
+                    <td>
+                        <a href="{% url 'delete_review' review.id %}" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4">No reviews found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

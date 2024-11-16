@@ -1,0 +1,13 @@
+{% extends 'courses/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Confirm Unban User</h2>
+    <p>Are you sure you want to unban {{ user.username }}?</p>
+    <form method="post" action="{% url 'unban_user' user.id %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-success">Unban</button>
+        <a href="{% url 'manage_users' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

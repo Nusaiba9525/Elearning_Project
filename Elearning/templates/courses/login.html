@@ -1,0 +1,108 @@
+{% extends 'courses/base.html' %}
+{% load static %}
+
+{% block title %}Login{% endblock title %}
+
+{% block heading %}
+<div class="container-fluid bg-primary py-5 mb-5 page-header">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 text-center">
+                <h1 class="display-3 text-white animated slideInDown">Login</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item"><a class="text-white" href="{% url 'home' %}">Home</a></li>
+                        <li class="breadcrumb-item"><a class="text-white" href="#">Pages</a></li>
+                        <li class="breadcrumb-item text-white active" aria-current="page">Login</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock heading %}
+
+{% block content %}
+<!-- Login Start -->
+<div class="container-xxl py-2 mt-4">
+    <div class="container">
+        <div class="row g-4 wow fadeInUp" data-wow-delay="0.5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;">
+            <center>
+                <form class="shadow p-4" style="max-width: 550px;" method="POST">
+                    {% csrf_token %}
+                    
+                    <!-- Display general form errors -->
+                    {% if error %}
+                        <div class="alert alert-danger text-center">
+                            <p>{{ error }}</p>
+                        </div>
+                    {% endif %}
+
+                    <div class="text-center wow fadeInUp" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">
+                        <h1 class="mb-5 bg-white text-center px-3">Login</h1>
+                    </div>
+
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <div class="form-floating">
+                                {{ form.username }}
+                                <label for="username">Username</label>
+                                {% if form.username.errors %}
+                                    <div class="text-danger">
+                                        {% for error in form.username.errors %}
+                                            <p>{{ error }}</p>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-floating">
+                                {{ form.password }}
+                                <label for="password">Password</label>
+                                {% if form.password.errors %}
+                                    <div class="text-danger">
+                                        {% for error in form.password.errors %}
+                                            <p>{{ error }}</p>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <p><a href="#">Forgot password?</a></p>
+                        </div>
+                        
+                        <div class="col-12">
+                            <button class="btn btn-primary w-100 py-3" type="submit" name="login">Login</button>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- Messages for success or other info -->
+                <div class="card-footer">
+                    <div class="d-flex justify-content-center">
+                    
+                    </div>
+                </div>
+            </center>
+        </div>
+    </div>
+</div>
+<!-- Login End -->
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const showPasswordCheckbox = document.getElementById('show-password');
+        const passwordInput = document.querySelector('input[name="password"]');
+        
+        showPasswordCheckbox.addEventListener('change', function () {
+            passwordInput.type = this.checked ? 'text' : 'password';
+        });
+    });
+</script>
+{% endblock content %}
+
+

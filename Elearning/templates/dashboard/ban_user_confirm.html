@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Confirm Ban User</h2>
+    <p>Are you sure you want to ban {{ user.username }}?</p>
+    <form method="post" action="{% url 'ban_user' user.id %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Ban</button>
+        <a href="{% url 'manage_users' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

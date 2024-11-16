@@ -1,0 +1,80 @@
+{% extends 'courses/base.html' %}
+
+{% block title %}Success{% endblock %}
+
+{% block heading %}
+<div class="container-fluid bg-primary py-5 mb-5 page-header">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 text-center">
+                <h1 class="display-3 text-white animated slideInDown">Success Page</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item"><a class="text-white" href="{% url 'home' %}">Home</a></li>
+                        <li class="breadcrumb-item text-white active" aria-current="page">All Quizzes</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock heading %}
+
+{% block content %}
+<style>
+    .success-container {
+        text-align: center;
+        padding: 50px;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .success-icon {
+        font-size: 80px;
+        color: #28a745;
+    }
+
+    .success-message {
+        font-size: 24px;
+        font-weight: 600;
+        color: #343a40;
+        margin-top: 20px;
+    }
+
+    .success-details {
+        font-size: 16px;
+        color: #6c757d;
+        margin-top: 10px;
+    }
+
+    .btn-back {
+        margin-top: 30px;
+        padding: 10px 20px;
+        font-size: 16px;
+        color: #fff;
+        background-color: #007bff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        text-decoration: none;
+    }
+
+    .btn-back:hover {
+        background-color: #0056b3;
+    }
+</style>
+
+<div class="container success-container">
+    <div class="success-icon">✔️</div>
+    <div class="success-message">Quiz Uploaded Successfully!</div>
+    <div class="success-details">
+        Your quiz has been successfully uploaded. You can now view it or upload another quiz.
+    </div>
+    <br>
+    <br>
+    <br>
+    <a href="{% url 'upload_quiz' %}" class="btn-back">Upload Another Quiz</a>
+</div>
+{% endblock %}

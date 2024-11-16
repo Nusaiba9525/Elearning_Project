@@ -1,0 +1,27 @@
+{% extends 'courses/base.html' %}
+
+{% block title %}Edit Course{% endblock %}
+
+{% block content %}
+<div class="container-xxl py-2 mt-4">
+    <div class="container">
+        <div class="row g-4 justify-content-center">
+            <div class="col-lg-6">
+                <form method="POST" enctype="multipart/form-data" class="shadow p-4">
+                    {% csrf_token %}
+                    <div class="text-center mb-4">
+                        <h2 class="mb-3">Edit Course</h2>
+                    </div>
+                    
+                    {{ form.as_p }}
+                    
+                    <div class="text-center mt-4">
+                        <button type="submit" class="btn btn-primary w-100 py-2">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

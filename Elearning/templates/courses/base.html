@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> {% block title %}Home {% endblock title %}  </title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome (for user icon) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <!-- Bootstrap JS for dropdown functionality (Place before closing body tag) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Favicon -->
+    <link href="{% static 'img/favicon.ico' %}" rel="icon">
+    
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Icon Font Stylesheet -->
+    <!--<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet"> -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <!-- Libraries Stylesheet -->
+    <link href="{% static 'lib/animate/animate.min.css' %}" rel="stylesheet">
+    <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+    
+    
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    
+    
+    <!-- Template Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+
+
+</head>
+<body>
+       <!-- Spinner Start -->
+     
+
+
+        <!-- Navbar Start -->
+        <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
+            <a href="{% url 'home' %}" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
+                <h2 class="m-0 text-primary"><i class="fa fa-book me-3"></i>E Learning</h2>
+            </a>
+            <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="navbar-nav ms-auto p-4 p-lg-0">
+                    <a href="{% url 'home' %}" class="nav-item nav-link">Home</a>
+                    <a href="{% url 'about' %}" class="nav-item nav-link">About</a>      
+                    {% if user.is_authenticated %}
+                        {% if user.is_superuser %}
+                            <div class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Admin Dashboard</a>
+                                <div class="dropdown-menu">
+                                    <a href="{% url 'manage_categories' %}" class="dropdown-item">Manage Categories</a>
+                                    <a href="{% url 'manage_courses' %}" class="dropdown-item">Manage Courses</a>
+                                    <a href="{% url 'quiz_list' %}" class="dropdown-item">Manage Quiz</a>
+                                    <a href="{% url 'manage_users' %}" class="dropdown-item">Manage Users</a>
+                                    <a href="{% url 'review_management' %}" class="dropdown-item">Manage Reviews</a>
+                                    <a href="{% url 'admin:index' %}" class="dropdown-item">Admin Panel</a>
+                                </div>
+                            </div>
+                        {% else %}
+                            <a href="{% url 'enrolled_courses' %}" class="nav-item nav-link">Enrolled Courses</a>
+                            <a href="{% url 'reviews' %}" class="nav-item nav-link">Reviews</a>
+                            <a href="{% url 'course_category' %}" class="nav-item nav-link">Courses</a>
+                            {% endif %}
+                    {% endif %}
+                    
+                    <!-- User Icon Dropdown for both authenticated and non-authenticated users -->
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-item nav-link dropdown-toggle" id="userDropdown" style="align-items: center; justify-content: center;" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user" style="align-items: center; justify-content: center;"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                            {% if user.is_authenticated %}
+                                <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                            {% else %}
+                                <li><a class="dropdown-item" href="{% url 'login' %}">Login</a></li>
+                                <li><a class="dropdown-item" href="{% url 'register' %}">Register</a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- Navbar End -->
+<!-- Carousel Start -->
+{% block heading %}
+
+<div id="carouselExampleCaptions" class="carousel slide">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="{% static 'img/carousel-1.jpg' %}" class="d-block w-100" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+                <h5 class="text-primary">Best Online Courses</h5>
+                <h1 class="display-3 text-white">The Best Online Learning Platform</h1>
+                <p class="fs-5 text-white mb-4 pb-2">Vero elitr justo clita lorem. Ipsum dolor at sed stet sit diam no. Kasd rebum ipsum et diam justo clita et kasd rebum sea sanctus eirmod elitr.</p>
+                <a href="#" class="btn btn-primary py-md-3 px-md-5 me-3">Read More</a>
+                <a href="#" class="btn btn-light py-md-3 px-md-5">Join Now</a>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <img src="{% static 'img/carousel-2.jpg' %}" class="d-block w-100" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+                <h5 class="text-primary">Best Online Courses</h5>
+                <h1 class="display-3 text-white">Get Educated Online From Your Home</h1>
+                <p class="fs-5 text-white mb-4 pb-2">Vero elitr justo clita lorem. Ipsum dolor at sed stet sit diam no. Kasd rebum ipsum et diam justo clita et kasd rebum sea sanctus eirmod elitr.</p>
+                <a href="#" class="btn btn-primary py-md-3 px-md-5 me-3">Read More</a>
+                <a href="#" class="btn btn-light py-md-3 px-md-5">Join Now</a>
+            </div>
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+  {% endblock heading %}
+
+
+
+  <!-- Carousel End -->
+  
+
+        
+<main>
+
+    {% block content %}
+
+
+    {% endblock content %}
+</main>
+
+
+
+
+
+ <!-- Footer Start -->
+ <div class="container-fluid bg-dark text-light footer pt-3 mt-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="container py-3">
+        <div class="row g-3">
+            <div class="col-lg-4 col-md-6">
+                <h5 class="text-white mb-2">Quick Link</h5>
+                <p><a class="text-light" href="about.html">About Us</a></p>
+                <p><a class="text-light" href="">Privacy Policy</a></p>
+                <p><a class="text-light" href="">Terms & Condition</a></p>
+                <p><a class="text-light" href="">FAQs & Help</a></p>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <h5 class="text-white mb-2">Contact</h5>
+                <p class="mb-1"><i class="fa fa-map-marker-alt me-2"></i>123 Street</p>
+                <p class="mb-1"><i class="fa fa-phone-alt me-2"></i>+91 1234567890</p>
+                <p class="mb-1"><i class="fa fa-envelope me-2"></i>ELearning@gmail.com</p>
+                <div class="d-flex pt-1">
+                    <a class="btn btn-outline-light btn-social btn-sm" href=""><i class="fab fa-twitter"></i></a>
+                    <a class="btn btn-outline-light btn-social btn-sm" href=""><i class="fab fa-facebook-f"></i></a>
+                    <a class="btn btn-outline-light btn-social btn-sm" href=""><i class="fab fa-youtube"></i></a>
+                    <a class="btn btn-outline-light btn-social btn-sm" href=""><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <h5 class="text-white mb-2">Subscribe to our Newsletter</h5>
+                <p>Join our community of learners committed to lifelong education!</p>
+                <div class="position-relative mx-auto" style="max-width: 300px;">
+                    <form action="#">
+                        <input class="form-control border-0 w-100 py-2 ps-3 pe-4" type="email"
+                            placeholder="Your email" required>
+                        <button type="submit" class="btn btn-primary py-1 position-absolute top-0 end-0 mt-1 me-1">
+                            <a href="mailto:keertidvcorai@gmail.com">Subscribe</a>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="copyright py-2">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    &copy; <a class="border-bottom" href="index.html">E Learning</a>, All Right Reserved.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- Footer End -->
+<!-- Back to Top -->
+<a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+<!-- JavaScript Libraries -->
+<script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'lib/wow/wow.min.js' %}"></script>
+<script src="{% static 'lib/easing/easing.min.js' %}"></script>
+<script src="{% static 'lib/waypoints/waypoints.min.js' %}"></script>
+<script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
+
+<!-- Template Javascript -->
+<script src="{% static 'js/main.js' %}"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+<!-- jQuery (required for Bootstrap JS) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

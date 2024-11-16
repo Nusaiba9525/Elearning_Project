@@ -1,0 +1,68 @@
+{% extends 'courses/base.html' %}
+{% load static %}
+
+{% block title %}Courses{% endblock title %}
+
+{% block heading %}
+   <!-- Header Start -->
+<div class="container-fluid bg-primary py-5 mb-5 page-header">
+    
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 text-center">
+                <h1 class="display-3 text-white animated slideInDown">Courses</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item"><a class="text-white" href="{% url 'home' %}">Home</a></li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Header End -->
+
+{% endblock heading %}
+
+
+{% block content %}
+
+
+ <!-- Categories Start -->
+ <div class="container-xxl py-5 category">
+    <div class="container">
+        <div class="text-center wow fadeInUp" data-wow-delay="0.1s" >
+            <h6 class="section-title bg-white text-center text-primary px-3">Categories</h6>
+            <h1 class="mb-5">Courses Categories</h1>
+        </div> 
+        <div class="row g-3" >
+
+
+            {% for cats in categories %}
+                <div class="col-lg-4 col-md-4 col-xs-6 wow zoomIn" data-wow-delay="0.7s" style="min-height: 350px;margin-top: 20px; box-shadow: 5px 5px 10px 5px" >
+                    <a class="position-relative d-block h-100 overflow-hidden" href="{% url 'course_detail' foo=cats.name  %}">
+                        <img  class="img-fluid position-absolute w-100 h-100 "  src="{{ cats.image.url }}" alt="{{cats.name}}" style="object-fit: fill;">
+                        
+                        <div class="bg-white text-center position-absolute bottom-0 end-0 py-2 px-3" style="margin:  1px;">
+                            <h5 class="m-0">{{cats.name}}</h5>
+                            <small class="text-primary">{{cats.course_count}} Courses</small>
+                        </div>
+                    </a>
+                </div>
+            
+
+            {% endfor %}
+
+            
+        </div>
+    </div>
+</div>
+<!-- Categories End -->
+
+{% endblock content %}
+
+   
+
+
+        
+

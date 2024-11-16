@@ -1,0 +1,91 @@
+{% extends 'courses/base.html' %}
+{% load static %}
+{% load custom_filters %} <!-- Ensure custom_filters is loaded -->
+
+{% block title %}
+  Course Detail
+{% endblock %}
+
+{% block heading %}
+  <div class="container-fluid bg-primary py-5 mb-5 page-header">
+    <div class="container py-5">
+      <div class="row justify-content-center">
+        <div class="col-lg-10 text-center">
+          <h1 class="display-3 text-white animated slideInDown">{{ category_obj.name }}</h1>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb justify-content-center">
+              <li class="breadcrumb-item">
+                <a class="text-white" href="{% url 'home' %}">Home</a>
+              </li>
+              <li class="breadcrumb-item">
+                <a class="text-white" href="#">Pages</a>
+              </li>
+              <li class="breadcrumb-item text-white active" aria-current="page">Courses</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <div class="row">
+      {% for course in courses %}
+        <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+          <div class="course-item bg-light" style="margin-top: 20px; box-shadow: 5px 5px 10px 5px;">
+            <div class="position-relative overflow-hidden">
+              <img src="{{ course.image.url }}" class="img-fluid" alt="{{ course.title }}" style="height: 300px; width: 100%;"/>
+            </div>
+            <div class="text-center p-4 pb-0">
+              <h5 class="mb-4">{{ course.title }}</h5>
+              <p class="mb-4">₹{{ course.price }}</p>
+              <div class="mb-3">
+                <a href="#" class="flex-shrink-0 btn btn-sm btn-primary px-3 border-end" style="border-radius: 30px 0 0 30px;" onclick="toggleDescription(event, 'desc-{{ course.id }}')">Read More</a>
+
+                {% if user.is_authenticated %}
+                        {% if enrolled_courses|get_item:course.id %}
+                          {% with enrolled_course=enrolled_courses|get_item:course.id %}
+                              {% if enrolled_course.payment_status == 'Paid' %}
+                              
+                                  <button class="btn btn-sm btn-success" disabled style="border-radius: 0 30px 30px 0;">Enrolled</button>
+                              {% else %}
+                              
+                                  <button class="btn btn-sm btn-warning" disabled style="border-radius: 0 30px 30px 0;">Pending Payment</button>
+                              {% endif %}
+                          {% endwith %}
+                      {% else %}
+                          <a href="{% url 'enroll_course' course_id=course.id %}" class="flex-shrink-0 btn btn-sm btn-primary px-3" style="border-radius: 0 30px 30px 0;">Enroll</a>
+                      {% endif %}
+                  {% else %}
+                      <p class="text-center"><a href="{% url 'login' %}">Log in</a> to enroll.</p>
+                  {% endif %}
+              </div>
+
+              <!-- Course Description (Initially hidden) -->
+              <div id="desc-{{ course.id }}" class="course-description" style="display: none;">
+                  <p>{{ course.description }}</p>
+              </div>
+            </div>
+            <div class="d-flex border-top">
+              <small class="flex-fill text-center border-end py-2">{{ course.video_count }} videos</small>
+              <small class="flex-fill text-center py-2"><i class="fa fa-user text-primary me-2"></i>{{ course.student_count }} Students</small>
+            </div>
+          </div>
+        </div>
+      {% empty %}
+        <p class="text-center">It looks like there are no courses available in this category right now. Explore other categories or check back later to find something that interests you!</p>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Add this JavaScript at the bottom of your template or in a separate JS file -->
+  <script>
+    function toggleDescription(event, descriptionId) {
+      event.preventDefault(); // Prevent default anchor behavior
+      var description = document.getElementById(descriptionId);
+      description.style.display = (description.style.display === 'none' || description.style.display === '') ? 'block' : 'none';
+    }
+  </script>
+{% endblock %}

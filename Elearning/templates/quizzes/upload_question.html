@@ -1,0 +1,104 @@
+{% extends 'courses/base.html' %}
+{% load form_filters %}
+
+{% block heading %}
+<div class="container-fluid bg-primary py-5 mb-5 page-header">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 text-center">
+                <h1 class="display-3 text-white animated slideInDown">Upload Question</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item"><a class="text-white" href="{% url 'home' %}">Home</a></li>
+                        <li class="breadcrumb-item text-white active" aria-current="page">Manage Quiz</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock heading %}
+
+{% block content %}
+<style>
+    h2 {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    form {
+        background-color: #f8f9fa;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    form input[type="text"],
+    form textarea {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ced4da;
+        border-radius: 5px;
+    }
+
+    form button {
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
+        font-weight: bold;
+        border-radius: 5px;
+    }
+
+    #question-form {
+        margin-bottom: 20px;
+    }
+
+    #questions-container {
+        margin-top: 20px;
+    }
+
+    .container {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .page-header {
+        background-color: #007bff;
+        color: #ffffff;
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 30px;
+    }
+</style>
+
+<div class="container mt-5">
+    <h2>Upload a New Question to {{ quiz.title }}</h2>
+    <form method="POST" id="question-form">
+        {% csrf_token %}
+
+        <!-- Render the question form -->
+        <div class="qus" id="question-template">
+            {{ question_form.as_p }}
+
+            <!-- Render the choice formset -->
+            <h4>Choices:</h4>
+            <div id="choices-container">
+                {{ choice_formset.management_form }}
+                {% for choice_form in choice_formset %}
+                    <div class="mb-3">
+                        {{ choice_form.as_p }}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div id="questions-container">
+            <!-- This is where new questions will be added -->
+        </div>
+
+        <a type="button" class="btn btn-secondary" href="{% url 'quiz_detail' course_id=quiz.course.id quiz_id=quiz.id %}">Show All Questions</a>
+        <button type="submit" class="btn btn-primary">Upload Question</button>
+    </form>
+</div>
+{% endblock %}

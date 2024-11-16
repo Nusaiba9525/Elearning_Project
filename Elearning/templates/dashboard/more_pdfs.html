@@ -1,0 +1,70 @@
+{% extends 'courses/base.html' %}
+{% load static %}
+{% block title %}Upload Lecture PDF{% endblock title %}
+
+{% block heading %}
+<div class="container-fluid bg-primary py-5 mb-5 page-header">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 text-center">
+                <h1 class="display-3 text-white animated slideInDown">Upload Lecture PDF</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item"><a class="text-white" href="{% url 'home' %}">Home</a></li>
+                        <li class="breadcrumb-item text-white active" aria-current="page">Upload Lecture PDF</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock heading %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Upload a Lecture PDF for "{{ course.title }}"</h2>
+    
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ pdf_form.non_field_errors }}
+        
+        <div class="form-group">
+            {{ pdf_form.title.label_tag }}
+            {{ pdf_form.title }}
+        </div>
+        
+        <div class="form-group">
+            {{ pdf_form.pdf_file.label_tag }}
+            {{ pdf_form.pdf_file }}
+        </div>
+        
+        <button type="submit" class="btn btn-primary btn-block">Upload PDF</button>
+    </form>
+    
+    <a href="{% url 'manage_lectures' course_id=course.id %}" class="btn btn-secondary mt-3">Back to Manage Lectures</a>
+</div>
+{% endblock content %}
+
+{% block css %}
+<style>
+    .page-header {
+        background-color: #007bff;
+        color: #ffffff;
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 30px;
+    }
+
+    .form-label {
+        font-weight: bold;
+    }
+
+    .form-control {
+        margin-bottom: 15px;
+    }
+
+    .btn-block {
+        width: 100%;
+    }
+</style>
+{% endblock css %}

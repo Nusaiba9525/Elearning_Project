@@ -1,0 +1,50 @@
+<h2>Edit Lecture</h2>
+
+<!-- Success message -->
+{% if success_message %}
+    <div class="alert alert-success">
+        {{ success_message }}
+    </div>
+{% endif %}
+
+<!-- Lecture Form -->
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    
+    <h3>Lecture</h3>
+
+    <div class="form-group">
+        <label for="{{ form.title.id_for_label }}">Title</label>
+        {{ form.title }}
+    </div>
+
+    <div class="form-group">
+        <label for="{{ form.description.id_for_label }}">Description</label>
+        {{ form.description }}
+    </div>
+
+    <div class="form-group">
+        <label for="{{ form.order.id_for_label }}">Order</label>
+        {{ form.order }}
+    </div>
+
+    <h3>Lecture PDF</h3>
+    {% for pdf_form in pdf_forms %}
+        <div class="form-group">
+            <label for="{{ pdf_form.title.id_for_label }}">Lecture Title</label>
+            {{ pdf_form.title }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ pdf_form.name.id_for_label }}">PDF Name</label>
+            {{ pdf_form.name }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ pdf_form.pdf_file.id_for_label }}">Upload PDF</label>
+            {{ pdf_form.pdf_file }}
+        </div>
+    {% endfor %}
+
+    <button type="submit">Save</button>
+</form>

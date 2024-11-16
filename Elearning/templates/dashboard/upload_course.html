@@ -1,0 +1,80 @@
+{% extends 'courses/base.html' %}
+
+{% block title %}Upload Courses{% endblock title %}
+
+{% block heading %}
+<div class="container-fluid bg-primary py-5 mb-5 page-header">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 text-center">
+                <h1 class="display-3 text-white animated slideInDown">Upload Courses</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item"><a class="text-white" href="{% url 'home' %}">Home</a></li>
+                        <li class="breadcrumb-item text-white active" aria-current="page">Upload Courses</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock heading %}
+
+{% block content %}
+<style>
+
+    h2 {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    
+    form {
+        background-color: #f8f9fa;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    form input[type="text"],
+    form input[type="file"],
+    form textarea {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ced4da;
+        border-radius: 5px;
+    }
+    
+    form button {
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
+        font-weight: bold;
+        border-radius: 5px;
+    }
+    
+    .container {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+    
+    .page-header {
+        background-color: #007bff;
+        color: #ffffff;
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 30px;
+    }
+</style>
+
+
+
+<div class="container mt-5">
+    <h2>Upload a New Course</h2>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Upload Course</button>
+    </form>
+</div>
+{% endblock %}

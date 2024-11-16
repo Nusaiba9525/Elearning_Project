@@ -1,0 +1,102 @@
+{% extends 'courses/base.html' %}
+
+{% block title %}Manage Users{% endblock %}
+
+{% block heading %}
+<div class="container-fluid bg-primary py-5 mb-5 page-header">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 text-center">
+                <h1 class="display-3 text-white animated slideInDown">Manage Users</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item"><a class="text-white" href="{% url 'home' %}">Home</a></li>
+                        <li class="breadcrumb-item text-white active" aria-current="page">Manage Users</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock heading %}
+
+{% block content %}
+<style>
+    h2 {
+        font-size: 24px;
+        font-weight: 600;
+        color: #333;
+    }
+    
+    .list-group-item {
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
+    
+    .list-group-item .badge {
+        font-size: 14px;
+        font-weight: 500;
+    }
+    
+    .btn-sm {
+        font-size: 14px;
+        padding: 5px 10px;
+    }
+    
+    .btn-danger {
+        background-color: #dc3545;
+        border-color: #dc3545;
+    }
+    
+    .btn-success {
+        background-color: #28a745;
+        border-color: #28a745;
+    }
+    
+    .text-center {
+        text-align: center;
+    }
+
+</style>
+
+
+
+<div class="container mt-5">
+    <h1 class="mb-5 text-center">Manage Users</h1>
+
+    <!-- Manage Superusers Section -->
+    <h2 class="mb-4">Manage Superusers</h2>
+    {% if superusers %}
+        <ul class="list-group mb-5">
+            {% for user in superusers %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <span>{{ user.username }} - {{ user.email }}</span>
+                    <span class="badge bg-success">Superuser</span>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p class="text-center">No superusers available.</p>
+    {% endif %}
+
+    <!-- Manage Regular Users Section -->
+    <h2 class="mb-4">Manage Users</h2>
+    {% if regular_users %}
+        <ul class="list-group">
+            {% for user in regular_users %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <span>{{ user.username }} - {{ user.email }}</span>
+                    {% if user.is_active %}
+                        <a href="{% url 'ban_user' user.id %}" class="btn btn-danger btn-sm">Ban User</a>
+                    {% else %}
+                        <a href="{% url 'unban_user' user.id %}" class="btn btn-success btn-sm">Unban User</a>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p class="text-center">No users available.</p>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,123 @@
+{% extends 'courses/base.html' %}
+
+{% block title %}Review Page{% endblock %}
+
+{% block heading %}
+<div class="container-fluid bg-primary py-5 mb-5 page-header">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 text-center">
+                <h1 class="display-3 text-white animated slideInDown">Review Page</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item"><a class="text-white" href="{% url 'home' %}">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Review Page</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<style>
+    .testimonial-carousel {
+        margin-top: 30px;
+    }
+
+    .testimonial-item {
+        padding: 20px;
+        border: 1px solid #e1e1e1;
+        border-radius: 8px;
+        background: #f8f9fa;
+        margin: 10px;
+        box-shadow: none; /* Optional: Remove box-shadow */
+        transition: background 0.3s ease;
+        text-align: center;
+    }
+
+    .testimonial-item:hover {
+        background: #e9ecef; /* Lighten background on hover */
+    }
+
+    .testimonial-text {
+        padding: 15px;
+        border-radius: 5px;
+        background-color: #ffffff;
+        max-height: 150px; /* Set a max height */
+        overflow-y: auto; /* Allow vertical scrolling if content overflows */
+        word-wrap: break-word; /* Ensure long words wrap */
+    }
+
+    .rating {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 10px;
+    }
+
+    .rating i {
+        margin: 0 2px;
+    }
+
+    form {
+        background-color: #f8f9fa;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    }
+
+    form input[type="text"],
+    form input[type="file"],
+    form textarea {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ced4da;
+        border-radius: 5px;
+    }
+
+    form button {
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
+        font-weight: bold;
+        border-radius: 5px;
+    }
+
+    .container {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+</style>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+{% if messages  %}
+    
+{% for message in messages  %}
+<div class="alert alert-warning alert-dismissible fade show " role="alert" style="margin: 2px; text-align: center;">
+    <h5>{{message}}</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+{% endfor %}
+    
+{% endif %}
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/owl.carousel/2.3.4/owl.carousel.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $(".owl-carousel").owlCarousel({
+            items: 1,  // Number of items to display
+            loop: true,
+            autoplay: true,
+            autoplayTimeout: 5000,
+            smartSpeed: 500
+        });
+    });
+</script>
+{% endblock %}
