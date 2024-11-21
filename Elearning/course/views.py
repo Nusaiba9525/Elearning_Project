@@ -10,7 +10,8 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache
 from django.contrib.auth.decorators import user_passes_test
 from django.db.models import Count
-from django.db.models import Count, Q
+
+
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 def superuser_required(view_func):
@@ -245,16 +246,16 @@ def user_logout(request):
     return redirect('home')
 
 
-@never_cache
+@never_cache 
 @login_required(login_url='/login/')
 def review_view(request):
     # Check if the user has already submitted a review
     existing_review = Review.objects.filter(user=request.user).first()
-    
+
     if existing_review:
         messages.info(request, "You have already submitted a review.")
-        return render(request,'courses/reviewstop.html')  # Redirect if a review already exists
-    
+        return render(request, 'courses/reviewstop.html')  # Redirect if a review already exists
+
     if request.method == 'POST':
         form = ReviewForm(request.POST)
         if form.is_valid():
@@ -264,19 +265,30 @@ def review_view(request):
             return redirect('reviews')  # Redirect after successful form submission
     else:
         form = ReviewForm()
-    
+
+    # Fetch all reviews
     reviews = Review.objects.all()
-    return render(request, 'courses/review_page.html', {'form': form, 'reviews': reviews})
+    return render(request, 'courses/review_page.html', {
+        'form': form,
+        'reviews': reviews,
+        'user': request.user,  # Pass the logged-in user to the template
+    })
+
+@login_required
+def edit_review(request, id):
+    review = get_object_or_404(Review, id=id, user=request.user)
+
+    if request.method == "POST":
+        form = ReviewForm(request.POST, instance=review)
+        if form.is_valid():
+            form.save()
+            return redirect('home')  # Redirect to the main reviews page
+    else:
+        form = ReviewForm(instance=review)
+
+    return render(request, 'courses/edit_review.html', {'form': form})
+
 
 def about(request):
     return render(request, 'courses/about.html')
-
-
-
-
-
-
-
-
-
 

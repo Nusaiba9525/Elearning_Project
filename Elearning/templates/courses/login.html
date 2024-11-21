@@ -45,8 +45,11 @@
                     <div class="row g-3">
                         <div class="col-12">
                             <div class="form-floating">
-                                {{ form.username }}
-                                <label for="username">Username</label>
+                               
+                                
+                                <div class="col-12 text-center">
+                                    <label for="username">Username</label>{{ form.username }}
+                                </div>
                                 {% if form.username.errors %}
                                     <div class="text-danger">
                                         {% for error in form.username.errors %}
@@ -58,8 +61,13 @@
                         </div>
                         <div class="col-12">
                             <div class="form-floating">
-                                {{ form.password }}
-                                <label for="password">Password</label>
+                                <div class="col-12 text-center">
+                                    <label for="password">Password</label>
+                                    {{ form.password }}
+                                </div>
+                                
+                                
+                                
                                 {% if form.password.errors %}
                                     <div class="text-danger">
                                         {% for error in form.password.errors %}
@@ -70,8 +78,8 @@
                             </div>
                         </div>
 
-                        <div class="col-12">
-                            <p><a href="#">Forgot password?</a></p>
+                       <div class="col-12">
+                            <!-- <p><a href="#">Forgot password?</a></p> -->
                         </div>
                         
                         <div class="col-12">

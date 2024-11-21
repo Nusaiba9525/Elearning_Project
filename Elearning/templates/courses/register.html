@@ -24,7 +24,7 @@
 
 {% block content %}
 <!-- Register Start -->
-<div class="container-xxl py-2 mt-4">
+<div class="container-xxl py-2 mt-4 ">
     <div class="container">
         <div class="row g-4 wow fadeInUp" data-wow-delay="0.5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;">
             <center>
@@ -37,8 +37,9 @@
                         <!-- Username Field -->
                         <div class="col-12">
                             <div class="form-floating">
+                                <label for="username">Username</label><br>
                                 {{ form.username }}
-                                <label for="username">Username</label>
+                                
                                 {% if form.username.errors %}
                                     <div class="error-message">
                                         {% for error in form.username.errors %}
@@ -52,8 +53,9 @@
                         <!-- Email Field -->
                         <div class="col-12">
                             <div class="form-floating">
+                                <label for="email">Email</label><br>
                                 {{ form.email }}
-                                <label for="email">Email</label>
+                                
                                 {% if form.email.errors %}
                                     <div class="error-message">
                                         {% for error in form.email.errors %}
@@ -67,8 +69,9 @@
                         <!-- Password Field -->
                         <div class="col-12">
                             <div class="form-floating">
-                                {{ form.password1 }}
+                                <br>
                                 <label for="password1">Password</label>
+                                {{ form.password1 }}
                                 {% if form.password1.errors %}
                                     <div class="error-message">
                                         {% for error in form.password1.errors %}
@@ -83,8 +86,9 @@
                         <!-- Confirm Password Field -->
                         <div class="col-12">
                             <div class="form-floating">
+                                <br><label for="password2">Confirm Password</label>
                                 {{ form.password2 }}
-                                <label for="password2">Confirm Password</label>
+                               
                                 {% if form.password2.errors %}
                                     <div class="error-message">
                                         {% for error in form.password2.errors %}

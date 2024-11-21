@@ -127,3 +127,4 @@ class ReviewForm(forms.ModelForm):
         validators=[MinValueValidator(1), MaxValueValidator(5)],
         widget=forms.NumberInput(attrs={'class': 'form-control', 'min': 1, 'max': 5})
     )
+

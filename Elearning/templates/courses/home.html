@@ -92,6 +92,7 @@
                 <h5 class="mb-2">{{ review.user.username }}</h5>
                 <p class="mb-0">{{ review.content }}</p>
             </div>
+            
             <div class="rating">
                 {% for i in "12345" %}
                     {% if forloop.counter <= review.rating %}
@@ -100,7 +101,14 @@
                         <i class="far fa-star text-warning"></i>
                     {% endif %}
                 {% endfor %}
+                {% if user.is_authenticated and user == review.user %}
+
+                <a href="{% url 'edit_review' review.id %}" class="text-decoration-none text-start">
+                    <i class="fas fa-edit"></i> 
+                </a>
+            {% endif %}
             </div>
+           
         </div>
         {% empty %}
         <p class="text-start">No testimonials yet.</p>

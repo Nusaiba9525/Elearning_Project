@@ -16,7 +16,7 @@ urlpatterns = [
     path('about/', views.about, name='about'),
     path('reviews/', views.review_view, name='reviews'),
     path('courses/<int:course_id>/quizzes/', views.course_quizzes, name='course_quizzes'),
-    
+    path('review/<int:id>/edit/', views.edit_review, name='edit_review'),
    
     
 ]
